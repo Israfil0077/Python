@@ -1,0 +1,62 @@
+
+A = {1, 2, 3, 4, 5}
+B = {3, 4,  5, 6}
+
+print(A | B)  # Union of A and B
+print(A & B)  # Intersection of A and B
+print(A - B)  # Difference of A and B
+
+print(A ^ B)  # Symmetric difference of A and B
+# The symmetric difference between two sets is the set of elements
+# that are in either of the sets, but not in both. In other words,
+# it returns elements that are unique to each set
+
+print(A.issuperset(B))  # Check if A is a superset of B
+
+P = {1, 2, 3, 4}
+Q = {2, 3}
+print(P.issuperset(Q))  # Output: True
+print(P >= Q)           # Output: True
+# A superset check determines if one set contains
+# all elements of another set.
+
+print(Q.issubset(P))  # Output: True
+
+# A disjoint set means two sets have no elements in common.
+# In Python, you can check this using the isdisjoint() method:
+X = {1, 2, 3}
+Y = (4, 5, 6)
+
+print(X.isdisjoint(Y))  # Output: True
+print(A.isdisjoint(B))  # Output: False
+
+# existence in set
+print(3 in X)  # Output: True
+print(10 in Y)  # Output: False
+print(4 not in Y)  # Output :False
+
+# Operation In Set....
+S = {1, 2, 3, 4}
+S.add(5)
+print(S)  # s=={1,2,3,4,5}
+
+S.discard(3)
+print(S)  # s=={1,2,4,5}
+
+S.remove(2)
+print(S)  # s=={1,4,5}
+
+# S.remove(2)
+# print(S)    !! Key Error
+
+
+# Getting the unique element of a list....
+
+restruants = ["McDonaldes", "Buger kings", "McDonaldes", "KFC", "Chilox"]
+unique_restruants = set(restruants)
+print(unique_restruants)
+
+print(list(unique_restruants))
+
+# removes all duplicates and returns another list in one line...
+print(list(set(restruants)))
