@@ -1,3 +1,5 @@
+# Comparison between two 5D arrays' elements  for common data
+
 Arrary1 = [[[[[8, 9], [3, 4]], [[9, 10], [2, 14]]]]]
 Arrary2 = [[[[[18, 9], [3, 12]], [[9, 8], [9, 14]]]]]
 common_values = []
