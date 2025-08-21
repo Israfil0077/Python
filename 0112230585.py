@@ -1,12 +1,8 @@
-# Declare 5D arrays
-Array1 = [[[[[2, 3], [18, 12], [9, 10], [2, 14]]]]]
-Array2 = [[[[[18, 9], [3, 12], [6, 8], [9, 14]]]]]
+Array1 = [[[[[20, 32], [18, 13], [56, 89], [45, 69]]]]]
+Array2 = [[[[[32, 9], [20, 12], [45, 8], [69, 14]]]]]
 
-
-# Store common elements
 common_values = []
 
-# Compare each element in both arrays
 for i in range(len(Array1)):
     for j in range(len(Array1[i])):
         for k in range(len(Array1[i][j])):
@@ -22,5 +18,4 @@ for i in range(len(Array1)):
                                         if val1 == val2 and val1 not in common_values:
                                             common_values.append(val1)
 
-# Print common elements
 print("Common values:", common_values)
