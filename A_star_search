@@ -1,6 +1,4 @@
 import heapq
-
-# Romania map
 romania_map = {
     'Arad': {'Zerind': 75, 'Timisoara': 118, 'Sibiu': 140},
     'Zerind': {'Arad': 75, 'Oradea': 71},
@@ -24,6 +22,33 @@ romania_map = {
     'Neamt': {'Iasi': 87}
 }
 
+my_student_id = "0112230585"
+last_two_digits = int(my_student_id[-2:])
+bucharest_h_value = (last_two_digits ** 2) + 1
+
+heuristics = {
+    'Arad': 366,
+    'Bucharest': bucharest_h_value,
+    'Craiova': 160,
+    'Drobeta': 242,
+    'Eforie': 161,
+    'Fagaras': 176,
+    'Giurgiu': 77,
+    'Hirsova': 151,
+    'Iasi': 226,
+    'Lugoj': 244,
+    'Mehadia': 241,
+    'Neamt': 234,
+    'Oradea': 380,
+    'Pitesti': 100,
+    'Rimnicu Vilcea': 193,
+    'Sibiu': 253,
+    'Timisoara': 329,
+    'Urziceni': 80,
+    'Vaslui': 199,
+    'Zerind': 374
+}
+
 
 class Node:
     def __init__(self, city, cost, parent=None):
@@ -36,46 +61,41 @@ class Node:
 
 
 def heuristic(node, goal):
-    # No heuristic available to Eforie, so use 0 (Dijkstra's algorithm)
-    return 0
+    return heuristics.get(node.city, 0)
 
 
 def astar_search(graph, start, goal):
-    open_list = []
-    closed_set = set()
-    heapq.heappush(open_list, (start.cost + heuristic(start, goal), start))
-    while open_list:
-        _, current_node = heapq.heappop(open_list)
-        if current_node.city == goal.city:
+    front = []
+    visited = set()
+    heapq.heappush(front, (start.cost + heuristic(start, goal), start))
+    while front:
+        _, current = heapq.heappop(front)
+        if current.city == goal.city:
             path = []
-            while current_node:
-                path.append(current_node.city)
-                current_node = current_node.parent
-            return path[::-1]  # Reverse path
-        closed_set.add(current_node.city)
-        for neighbor, distance in graph[current_node.city].items():
-            if neighbor not in closed_set:
-                new_cost = current_node.cost + distance
-                new_node = Node(neighbor, new_cost, current_node)
-                heapq.heappush(open_list, (new_node.cost +
-                               heuristic(new_node, goal), new_node))
-    return None  # No path found
+            while current:
+                path.append(current.city)
+                current = current.parent
+            return path[::-1]
+        visited.add(current.city)
+        for neighbor, dist in graph[current.city].items():
+            if neighbor not in visited:
+                total_cost = current.cost + dist
+                heapq.heappush(front, (total_cost + heuristic(Node(neighbor,
+                               total_cost), goal), Node(neighbor, total_cost, current)))
+    return None
 
 
-# YOUR STUDENT ID
-student_id = 112230585
-
-# Calculate SL_NO and assign start/goal city automatically:
-SL_NO = (student_id % 10) + 1
+SL_NO = (int(my_student_id) % 10) + 1
 if SL_NO == 6:
     start_city = 'Oradea'
     goal_city = 'Eforie'
-# If you want to use this code for other SL_NO values, add their cases here.
 
-start_node = Node(start_city, 0)
-goal_node = Node(goal_city, 0)
-path = astar_search(romania_map, start_node, goal_node)
-if path:
-    print("Path found:", path)
+start = Node(start_city, 0)
+goal = Node(goal_city, 0)
+result_path = astar_search(romania_map, start, goal)
+
+
+if result_path:
+    print("Path found:", result_path)
 else:
-    print("No path found")
+    print("No path found!")
